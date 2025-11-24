@@ -273,6 +273,7 @@ var helps = map[string]*help{
 			"  chezmoi diff\n" +
 			"  chezmoi diff ~/.bashrc",
 		longFlags: chezmoiset.New(
+			"destination-prefix",
 			"exclude",
 			"include",
 			"init",
@@ -281,6 +282,7 @@ var helps = map[string]*help{
 			"recursive",
 			"reverse",
 			"script-contents",
+			"source-prefix",
 		),
 		shortFlags: chezmoiset.New(
 			"P",

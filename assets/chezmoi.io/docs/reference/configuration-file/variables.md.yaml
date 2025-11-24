@@ -160,6 +160,12 @@ sections:
     reverse:
       type: bool
       description: Reverse order of arguments to diff.
+    sourcePrefix:
+      type: string
+      description: Set source prefix.
+    destPrefix:
+      type: string
+      description: Set destination prefix.
     scriptContents:
       type: bool
       default: '`true`'

@@ -30,6 +30,18 @@ Pager to use for output.
 Reverse the direction of the diff, i.e. show the changes to the target required
 to match the destination.
 
+### `--source-prefix`
+
+> Configuration: `diff.sourcePrefix`
+
+Path prefix to use for source content in diff.
+
+### `--destination-prefix`
+
+> Configuration: `diff.destPrefix`
+
+Path prefix to use for destination content in diff.
+
 ### `--script-contents`
 
 Show script contents, defaults to `true`.
