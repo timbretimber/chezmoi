@@ -4,7 +4,7 @@ GOARCH=$(shell ${GO} env GOARCH)
 GOLANGCI_LINT_VERSION=$(shell awk '/GOLANGCI_LINT_VERSION:/ { print $$2 }' .github/workflows/main.yml)
 GORELEASER_VERSION=$(shell awk '/GORELEASER_VERSION:/ { print $$2 }' .github/workflows/main.yml)
 SYFT_VERSION=$(shell awk '/SYFT_VERSION:/ { print $$2 }' .github/workflows/main.yml)
-UPSTREAM=$(shell git remote -v | awk '/github.com[:\/]twpayne\/chezmoi(.git)? \(fetch\)/ {print $$1}')
+UPSTREAM=$(shell git config --get branch.$$(git rev-parse --abbrev-ref HEAD).remote || echo "origin")
 ifdef VERSION
 	GO_LDFLAGS+=-X main.version=${VERSION}
 endif
