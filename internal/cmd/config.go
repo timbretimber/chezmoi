@@ -1851,6 +1851,8 @@ func (c *Config) newBuiltinDiffSystem(s chezmoi.System, w io.Writer, dirAbsPath 
 		Filter:         chezmoi.NewEntryTypeFilter(c.Diff.include.Bits(), c.Diff.Exclude.Bits()),
 		Reverse:        c.Diff.Reverse,
 		ScriptContents: c.Diff.ScriptContents,
+		SourcePrefix:   c.Diff.SourcePrefix,
+		DestPrefix:     c.Diff.DestinationPrefix,
 		TextConvFunc:   c.TextConv.convert,
 	}
 	return chezmoi.NewGitDiffSystem(s, w, dirAbsPath, options)

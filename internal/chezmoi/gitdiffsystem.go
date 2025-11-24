@@ -36,6 +36,8 @@ type GitDiffSystemOptions struct {
 	Reverse        bool
 	ScriptContents bool
 	TextConvFunc   TextConvFunc
+	SourcePrefix   string
+	DestPrefix     string
 }
 
 // NewGitDiffSystem returns a new GitDiffSystem. Output is written to w, the
@@ -43,6 +45,18 @@ type GitDiffSystemOptions struct {
 // contains ANSI color escape sequences.
 func NewGitDiffSystem(system System, w io.Writer, dirAbsPath AbsPath, options *GitDiffSystemOptions) *GitDiffSystem {
 	unifiedEncoder := diff.NewUnifiedEncoder(w, diff.DefaultContextLines)
+	sourcePrefix, destPrefix := "a/", "b/"
+	if options.SourcePrefix != "" {
+		sourcePrefix = options.SourcePrefix
+	}
+	if options.DestPrefix != "" {
+		destPrefix = options.DestPrefix
+	}
+	if options.Reverse && (options.SourcePrefix != "" || options.DestPrefix != "") {
+		sourcePrefix, destPrefix = destPrefix, sourcePrefix
+	}
+	unifiedEncoder.SetSrcPrefix(sourcePrefix).SetDstPrefix(destPrefix)
+
 	if options.Color {
 		unifiedEncoder.SetColor(diff.NewColorConfig())
 	}

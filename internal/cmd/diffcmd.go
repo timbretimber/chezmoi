@@ -7,17 +7,19 @@ import (
 )
 
 type diffCmdConfig struct {
-	Command        string                `json:"command"        mapstructure:"command"        yaml:"command"`
-	Args           []string              `json:"args"           mapstructure:"args"           yaml:"args"`
-	Exclude        *chezmoi.EntryTypeSet `json:"exclude"        mapstructure:"exclude"        yaml:"exclude"`
-	Pager          string                `json:"pager"          mapstructure:"pager"          yaml:"pager"`
-	PagerArgs      []string              `json:"pagerArgs"      mapstructure:"pagerArgs"      yaml:"pagerArgs"`
-	Reverse        bool                  `json:"reverse"        mapstructure:"reverse"        yaml:"reverse"`
-	ScriptContents bool                  `json:"scriptContents" mapstructure:"scriptContents" yaml:"scriptContents"`
-	include        *chezmoi.EntryTypeSet
-	init           bool
-	parentDirs     bool
-	recursive      bool
+	Command           string                `json:"command"        mapstructure:"command"        yaml:"command"`
+	Args              []string              `json:"args"           mapstructure:"args"           yaml:"args"`
+	Exclude           *chezmoi.EntryTypeSet `json:"exclude"        mapstructure:"exclude"        yaml:"exclude"`
+	Pager             string                `json:"pager"          mapstructure:"pager"          yaml:"pager"`
+	PagerArgs         []string              `json:"pagerArgs"      mapstructure:"pagerArgs"      yaml:"pagerArgs"`
+	Reverse           bool                  `json:"reverse"        mapstructure:"reverse"        yaml:"reverse"`
+	ScriptContents    bool                  `json:"scriptContents" mapstructure:"scriptContents" yaml:"scriptContents"`
+	SourcePrefix      string                `json:"sourcePrefix"   mapstructure:"sourcePrefix"   yaml:"sourcePrefix"`
+	DestinationPrefix string                `json:"destPrefix"     mapstructure:"destPrefix"     yaml:"destPrefix"`
+	include           *chezmoi.EntryTypeSet
+	init              bool
+	parentDirs        bool
+	recursive         bool
 }
 
 func (c *Config) newDiffCmd() *cobra.Command {
@@ -46,6 +48,9 @@ func (c *Config) newDiffCmd() *cobra.Command {
 	diffCmd.Flags().BoolVarP(&c.Diff.recursive, "recursive", "r", c.Diff.recursive, "Recurse into subdirectories")
 	diffCmd.Flags().BoolVar(&c.Diff.Reverse, "reverse", c.Diff.Reverse, "Reverse the direction of the diff")
 	diffCmd.Flags().BoolVar(&c.Diff.ScriptContents, "script-contents", c.Diff.ScriptContents, "Show script contents")
+	diffCmd.Flags().StringVar(&c.Diff.SourcePrefix, "source-prefix", c.Diff.SourcePrefix, "Set source prefix")
+	diffCmd.Flags().
+		StringVar(&c.Diff.DestinationPrefix, "destination-prefix", c.Diff.DestinationPrefix, "Set destination prefix")
 
 	return diffCmd
 }
